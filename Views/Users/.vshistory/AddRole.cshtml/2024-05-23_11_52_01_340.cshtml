@@ -1,0 +1,12 @@
+﻿@model string
+
+<h1>Add Role</h1>
+
+<form asp-action="AddRole">
+    <input type="hidden" asp-for="UserId" />
+    <div class="form-group">
+        <label for="roleName">Role Name:</label>
+        <input type="text" class="form-control" id="roleName" name="roleName" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Role</button>
+</form>

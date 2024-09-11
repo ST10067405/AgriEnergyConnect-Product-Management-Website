@@ -1,0 +1,66 @@
+﻿@model IEnumerable<AgriEnergyConnect.Data.ApplicationUser>
+@using AgriEnergyConnect.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<h1>Users</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => user.Email)</td>
+                <td>
+                    <form asp-action="MakeRemoveAdmin" method="post">
+                        <input type="hidden" name="uId" value="@user.Id" />
+                        @if (await UserManager.IsInRoleAsync(user, "Administrator"))
+                        {
+                            <button type="submit" class="btn btn-danger">Remove Admin</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary">Make Admin</button>
+                        }
+                    </form>
+                </td>
+                <td>
+                    <form asp-action="MakeRemoveFarmer" method="post">
+                        <input type="hidden" name="uId" value="@user.Id" />
+                        @if (await UserManager.IsInRoleAsync(user, "Farmer"))
+                        {
+                            <button type="submit" class="btn btn-danger">Remove Farmer</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary">Make Farmer</button>
+                        }
+                    </form>
+                </td>
+                <td>
+                    <form asp-action="MakeRemoveEmployee" method="post">
+                        <input type="hidden" name="uId" value="@user.Id" />
+                        @if (await UserManager.IsInRoleAsync(user, "Employee"))
+                        {
+                            <button type="submit" class="btn btn-danger">Remove Employee</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary">Make Employee</button>
+                        }
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

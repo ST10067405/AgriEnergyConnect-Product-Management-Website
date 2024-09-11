@@ -1,0 +1,138 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero">
+    <div class="container text-center">
+        <h1>Bridging Agriculture and Green Energy Solutions</h1>
+        <p>In response to the growing need for sustainable agricultural practices and the integration of green energy solutions in South Africa, Agri-Energy Connect bridges the gap between the agricultural sector and green energy technology providers.</p>
+        @if (User.Identity.IsAuthenticated && !(User.IsInRole("Farmer") || User.IsInRole("Employee") || User.IsInRole("Administrator")))
+        {
+            <a href="Home/ThanksForSigningUp" class="btn btn-secondary">Waiting for Application Approval</a>
+        }
+        else if (User.IsInRole("Farmer") || User.IsInRole("Employee") || User.IsInRole("Administrator"))
+        {
+            <a href="/Products" class="btn btn-secondary">Welcome! Let's Get Started</a>
+        }
+        else
+        {
+            <a href="/Identity/Account/Login" class="btn btn-primary">Get Started</a>
+        }
+    </div>
+</section>
+
+<main>
+    <section class="about-us py-5">
+        <div class="container">
+            <h2>About Agri Energy Connect</h2>
+            <p>
+                At AgriEnergyConnect, we're dedicated to revolutionizing South Africa's agricultural landscape through sustainability and innovation. Our platform acts as a vital link between the agricultural sector and green energy technology providers, empowering farmers and stakeholders with eco-friendly practices and renewable energy solutions.
+            </p>
+
+            <p>
+                With extensive experience in both agriculture and renewable energy, our team offers a unique blend of expertise. From seasoned farmers to technology enthusiasts, we're committed to driving positive change in agriculture, fostering a greener future for generations to come.
+            </p>
+
+            <p>
+                Central to our mission is a dedication to sustainability, efficiency, and community. By fostering collaborations, we aim to create a thriving ecosystem where farmers access cutting-edge green technology, optimize operations, and increase productivity while conserving natural resources. Join us on our journey towards a brighter, more sustainable future for South Africa's agriculture and environment.
+            </p>
+
+            <img src="/images/about-us.jpg" alt="About Us" class="img-fluid" />
+        </div>
+    </section>
+
+    <section class="services py-5 bg-light">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <h3 class="card-header">Sustainable Agricultural Practices</h3>
+                        <div class="card-body">
+                            <p>Our sustainable agricultural practices service focuses on providing farmers with comprehensive solutions to enhance the productivity and resilience of their farms while minimizing environmental impact. We offer expertise in soil health management, water conservation, crop rotation strategies, and integrated pest management. Through tailored consultations and practical workshops, we help farmers adopt sustainable farming methods that improve yields, reduce input costs, and promote long-term sustainability.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <h3 class="card-header">Green Energy Solutions</h3>
+                        <div class="card-body">
+                            <p>Our green energy solutions service is dedicated to helping farmers harness the power of renewable energy sources to reduce their carbon footprint and achieve energy independence. We specialize in the design, installation, and maintenance of solar panel systems, wind turbines, and bioenergy solutions tailored to the unique needs of agricultural operations. By leveraging clean energy technologies, farmers can lower their energy costs, increase efficiency, and contribute to a more sustainable future for agriculture.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <h3 class="card-header">Technology Integration and Support</h3>
+                        <div class="card-body">
+                            <p>Our technology integration and support service aim to empower farmers with the latest digital tools and precision agriculture technologies to optimize their farm management practices. We offer consultation, implementation, and ongoing support for farm management software, IoT devices, drones, and sensor technology. By leveraging data-driven insights and real-time monitoring, farmers can make informed decisions, enhance operational efficiency, and maximize productivity while minimizing resource wastage.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="latest-news py-5">
+        <div class="container">
+            <h2>Latest News and Updates</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="blog-post">
+                        <h3>Enhancing Soil Health for Sustainable Agriculture</h3>
+                        <p>Discover the importance of soil health in sustainable agriculture and learn practical tips for improving soil fertility and structure to enhance crop productivity and resilience.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="blog-post">
+                        <h3>The Benefits of Solar Energy for Farming</h3>
+                        <p>Explore the advantages of harnessing solar energy on farms, including cost savings, energy independence, and environmental benefits. Learn how solar panel systems can revolutionize agricultural operations.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="blog-post">
+                        <h3>Integrating IoT Technology in Precision Agriculture</h3>
+                        <p>Discover how Internet of Things (IoT) technology is transforming precision agriculture practices. Learn about the latest IoT devices and sensors that enable farmers to monitor crop health, soil moisture levels, and environmental conditions in real-time.</p>
+                    </div>
+                </div>
+                <!-- Add more blog posts here -->
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials py-5 bg-light">
+        <div class="container">
+            <h2>What Our Partners Say</h2>
+            <div id="testimonialsCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <p>"AgriEnergyConnect has been instrumental in transforming our farm operations. Their expertise in sustainable agriculture and green energy solutions has helped us increase productivity while minimizing environmental impact. Highly recommended!"</p>
+                        <h5>John Smith</h5>
+                        <p>Farm Owner, Smith Family Farms</p>
+                    </div>
+                    <div class="carousel-item">
+                        <p>"We partnered with AgriEnergyConnect to implement solar panel systems on our farm, and the results have been remarkable. Not only have we reduced our energy costs significantly, but we've also reduced our carbon footprint. Thank you for your dedication to sustainability!"</p>
+                        <h5>Emily Johnson</h5>
+                        <p>CEO, Johnson Agribusiness</p>
+                    </div>
+                    <div class="carousel-item">
+                        <p>"The team at AgriEnergyConnect has been a valuable resource for us in adopting precision agriculture technologies. Their support and guidance have allowed us to optimize our farm management practices and improve efficiency. We look forward to continuing our partnership."</p>
+                        <h5>Michael Lee</h5>
+                        <p>Operations Manager, Green Fields Cooperative</p>
+                    </div>
+                    <!-- Add more testimonials here -->
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+</main>

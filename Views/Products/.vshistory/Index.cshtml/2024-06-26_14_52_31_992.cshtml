@@ -1,0 +1,82 @@
+﻿@model ProductFilterViewModel
+
+@{
+    ViewData["Title"] = "Product List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="mt-4">List of Products</h1>
+
+<form method="get" asp-action="Index" class="mb-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="ProductType">Product Name</label>
+                <input type="text" class="form-control" id="ProductType" name="productType" value="@Model.ProductType" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="ProductTypes">Product Type</label>
+                <select class="form-control" id="ProductType" name="productType">
+                    <option value="">All</option>
+                    @foreach (var item in Model.ProductType)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="StartDate">Start Date</label>
+                <input type="date" class="form-control" id="StartDate" name="startDate" value="@Model.StartDate?.ToString("yyyy-MM-dd")" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="EndDate">End Date</label>
+                <input type="date" class="form-control" id="EndDate" name="endDate" value="@Model.EndDate?.ToString("yyyy-MM-dd")" />
+            </div>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary mr-2" style="margin-right: 5px">Filter</button>
+            <a href="@Url.Action("Index", "Products")" class="btn btn-secondary">Clear Filter</a>
+        </div>
+    </div>
+</form>
+
+<table class="table table-hover table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Production Date</th>
+            <th>Made By Farmer</th>
+            @if (User.IsInRole("Employee") || User.IsInRole("Administrator"))
+            {
+                <th class="text-center">Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Category</td>
+                <td>@item.ProductionDate.ToString("yyyy-MM-dd")</td>
+                <td>
+                    @item.ApplicationUser?.FirstName @item.ApplicationUser?.LastName
+                </td>
+                @if (User.IsInRole("Employee") || User.IsInRole("Administrator"))
+                {
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-warning btn-sm">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

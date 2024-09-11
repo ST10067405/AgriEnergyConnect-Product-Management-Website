@@ -1,0 +1,72 @@
+﻿@model IEnumerable<AgriEnergyConnect.Data.ApplicationUser>
+@using AgriEnergyConnect.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<div class="container mt-4">
+    <h1 class="mb-4">Users</h1>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>User Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => user.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => user.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => user.LastName)</td>
+                    <td>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <form asp-action="MakeRemoveAdmin" method="post" class="d-inline">
+                                <input type="hidden" name="uId" value="@user.Id" />
+                                @if (await UserManager.IsInRoleAsync(user, "Administrator"))
+                                {
+                                    <button type="submit" class="btn btn-danger btn-sm">Remove Admin</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary btn-sm">Make Admin</button>
+                                }
+                            </form>
+
+                            <form asp-action="MakeRemoveEmployee" method="post" class="d-inline">
+                                <input type="hidden" name="uId" value="@user.Id" />
+                                @if (await UserManager.IsInRoleAsync(user, "Employee"))
+                                {
+                                    <button type="submit" class="btn btn-danger btn-sm">Remove Employee</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary btn-sm">Make Employee</button>
+                                }
+                            </form>
+                        }
+                        @if (User.IsInRole("Administrator") || await UserManager.IsInRoleAsync(user, "Employee"))
+                        {
+                            <form asp-action="MakeRemoveFarmer" method="post" class="d-inline">
+                                <input type="hidden" name="uId" value="@user.Id" />
+                                @if (await UserManager.IsInRoleAsync(user, "Farmer"))
+                                {
+                                    <button type="submit" class="btn btn-danger btn-sm">Remove Farmer</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary btn-sm">Make Farmer</button>
+                                }
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

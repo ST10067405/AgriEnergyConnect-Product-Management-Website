@@ -1,0 +1,17 @@
+﻿@model IList<string>
+
+<h1>Remove Role</h1>
+
+<p>Select the role to remove:</p>
+<form asp-action="RemoveRole">
+    <input type="hidden" asp-for="UserId" />
+    <div class="form-group">
+        <select class="form-control" id="roleName" name="roleName">
+            @foreach (var role in Model)
+            {
+                <option value="@role">@role</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-danger">Remove Role</button>
+</form>

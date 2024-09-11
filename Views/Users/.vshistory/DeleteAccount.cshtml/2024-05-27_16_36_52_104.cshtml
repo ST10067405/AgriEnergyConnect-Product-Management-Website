@@ -1,0 +1,13 @@
+﻿@model IEnumerable<AgriEnergyConnect.Data.ApplicationUser>
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Delete Account</h1>
+
+<p>Are you sure you want to delete your account?</p>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Delete Account</button>
+    <a asp-page="/Index">Cancel</a>
+</form>

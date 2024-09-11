@@ -1,0 +1,85 @@
+﻿@model IEnumerable<AgriEnergyConnect.Models.Product>
+
+@{
+    ViewData["Title"] = "Product List";
+    string? currentSort = ViewData["CurrentSort"] as string;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<body>
+    <h1 class="mt-4">List of Products</h1>
+    <main role="main">
+        <table class="table table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.ActionLink("Product Name", "Index", new { sortOrder = ViewData["NameSortParm"] })
+                        @if (currentSort == "name_desc")
+                        {
+                            <i class="fas fa-sort-down"></i>
+                        }
+                        else if (currentSort == "name")
+                        {
+                            <i class="fas fa-sort-up"></i>
+                        }
+                    </th>
+                    <th>
+                        @Html.ActionLink("Category", "Index", new { sortOrder = ViewData["CategorySortParm"] })
+                        @if (currentSort == "category_desc")
+                        {
+                            <i class="fas fa-sort-down"></i>
+                        }
+                        else if (currentSort == "category")
+                        {
+                            <i class="fas fa-sort-up"></i>
+                        }
+                    </th>
+                    <th>
+                        @Html.ActionLink("Production Date", "Index", new { sortOrder = ViewData["DateSortParm"] })
+                        @if (currentSort == "date_desc")
+                        {
+                            <i class="fas fa-sort-down"></i>
+                        }
+                        else if (currentSort == "date")
+                        {
+                            <i class="fas fa-sort-up"></i>
+                        }
+                    </th>
+                    <th>
+                        Made By Farmer
+                    </th>
+                    @if (User.IsInRole("Employee") || User.IsInRole("Administrator"))
+                    {
+                        <th class="text-center">Actions</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                        <td>
+                            @item.ProductionDate.ToString("yyyy-MM-dd")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ApplicationUser.FirstName)
+                            @Html.DisplayFor(modelItem => item.ApplicationUser.LastName)
+                        </td>
+                        @if (User.IsInRole("Employee") || User.IsInRole("Administrator"))
+                        {
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary btn-sm">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </main>
+</body>
